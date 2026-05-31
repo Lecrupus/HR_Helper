@@ -7,7 +7,7 @@
 
 ## Executive Summary
 
-This document describes the complete, production-ready WCIRIA platform—an enterprise-grade SaaS application for workforce continuity risk analysis and insider threat detection. The platform is built with **zero placeholders** using cutting-edge technologies and follows Fortune 500 engineering standards.
+This document describes the complete, production-ready WCIRIA platform—an enterprise-grade SaaS application for workforce continuity risk analysis and insider threat detection. The platform is built with **zero placeholders** using cutting-edge technologies and follows Fortune 500 engineering standards. Coral is the central intelligence layer that makes the platform explainable, evidence-driven, and operationally useful.
 
 ### What Was Built
 
@@ -1202,7 +1202,7 @@ curl http://localhost:3001/api/v1/employees/550e8400-e29b-41d4-a716-446655440000
 ✅ **11 relational database tables** with 10,000+ realistic mock data rows
 ✅ **5 complex employee profiles** with interconnected risks and dependencies
 ✅ **8 REST API endpoints** with full Zod validation
-✅ **Coral Reasoning Engine** executing multi-source semantic joins
+✅ **Coral Reasoning Engine** as the central intelligence layer, executing multi-source semantic joins
 ✅ **Mathematical risk models** with explicit formulas
 ✅ **Enterprise frontend** with professional dashboard
 ✅ **Complete Docker deployment** with compose orchestration
