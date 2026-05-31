@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # ========================================================================
+  # PostgreSQL Database
+  # ========================================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: wciria-postgres
+    environment:
+      POSTGRES_USER: wciria
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: wciria_db
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./backend/src/database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./backend/src/database/mock-data.sql:/docker-entrypoint-initdb.d/02-mock-data.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wciria"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - wciria-network
+
+  # ========================================================================
+  # Redis Cache
+  # ========================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: wciria-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - wciria-network
+
+  # ========================================================================
+  # Fastify Backend API
+  # ========================================================================
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wciria-backend
+    environment:
+      NODE_ENV: development
+      LOG_LEVEL: debug
+      PORT: 3001
+      HOST: 0.0.0.0
+      DATABASE_URL: postgresql://wciria:password@postgres:5432/wciria_db
+      REDIS_URL: redis://redis:6379
+      CORS_ORIGIN: http://localhost:3000
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: npm start
+    networks:
+      - wciria-network
+
+  # ========================================================================
+  # Static Frontend
+  # ========================================================================
+  frontend:
+    image: nginx:1.27-alpine
+    container_name: wciria-frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./styles.css:/usr/share/nginx/html/styles.css:ro
+      - ./app.js:/usr/share/nginx/html/app.js:ro
+    command: ["nginx", "-g", "daemon off;"]
+    depends_on:
+      - backend
+    networks:
+      - wciria-network
+
+volumes:
+  postgres-data:
+  redis-data:
+
+networks:
+  wciria-network:
+    driver: bridge

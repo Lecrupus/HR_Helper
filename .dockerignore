@@ -1,0 +1,12 @@
+backend/node_modules
+backend/dist
+frontend
+.git
+.gitignore
+*.log
+npm-debug.log*
+Dockerfile
+docker-compose.yml
+README*.md
+IMPLEMENTATION_GUIDE.md
+BUILD_SUMMARY.md

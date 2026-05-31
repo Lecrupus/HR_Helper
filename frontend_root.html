@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WCIR Intelligence Agent - Implementation Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Public+Sans:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-50 antialiased">
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-mark">WCIR</span>
+        <div class="brand-text">
+          <strong>Workforce Continuity & Insider Risk</strong>
+          <span>Intelligence Agent (WCIRIA)</span>
+        </div>
+      </div>
+      <nav class="site-nav" aria-label="Feature tabs">
+        <button class="tab-link is-active" type="button" data-tab-target="overview">Overview</button>
+        <button class="tab-link" type="button" data-tab-target="risk">Risk Profile</button>
+        <button class="tab-link" type="button" data-tab-target="signals">Signals</button>
+        <button class="tab-link" type="button" data-tab-target="successors">Successors</button>
+        <button class="tab-link" type="button" data-tab-target="coral">Coral Activity</button>
+        <button class="tab-link" type="button" data-tab-target="transfer">Transfer Plan</button>
+        <button class="tab-link" type="button" data-tab-target="intake">New Employee</button>
+      </nav>
+      <div class="header-status">
+        <span class="status-dot"></span>
+        <span class="status-text">System Active</span>
+        <span class="status-text">Last sync <strong data-last-sync>2m ago</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero" id="top">
+      <div class="container" data-reveal>
+        <p class="eyebrow">Enterprise Intelligence Platform</p>
+        <h1>Workforce Continuity & Insider Risk Intelligence Agent</h1>
+        <p class="lead">
+          Coral-powered multi-source semantic intelligence system delivering knowledge risk analysis, insider threat detection,
+          scenario simulations, and automated knowledge transfer planning for enterprise workforce resilience.
+        </p>
+        <div class="tag-row meta-row">
+          <span class="tag">Coral Multi-Source Join</span>
+          <span class="tag">Synthetic Enterprise Dataset</span>
+          <span class="tag">Scenario Simulation</span>
+          <span class="tag">Explainable Intelligence</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dashboard tab-panel is-active" id="overview" data-tab-panel="overview">
+      <div class="container">
+        <h2 data-reveal>Executive KPI Dashboard</h2>
+        
+        <div class="kpi-row" data-reveal>
+          <div class="kpi-card tone-accent">
+            <div class="kpi-label">Org Risk Score</div>
+            <div class="kpi-value tone-accent">78</div>
+            <div class="kpi-sub">↑ 12 points in 7d</div>
+          </div>
+          <div class="kpi-card tone-warn">
+            <div class="kpi-label">Active Insider Threats</div>
+            <div class="kpi-value tone-warn">5</div>
+            <div class="kpi-sub">3 critical signals</div>
+          </div>
+          <div class="kpi-card tone-accent">
+            <div class="kpi-label">Enterprise Bus Factor</div>
+            <div class="kpi-value tone-accent">12</div>
+            <div class="kpi-sub">Critical repos</div>
+          </div>
+          <div class="kpi-card tone-warn">
+            <div class="kpi-label">Successor Gap Count</div>
+            <div class="kpi-value tone-warn">18</div>
+            <div class="kpi-sub">Readiness < 50%</div>
+          </div>
+        </div>
+
+        <div class="heatmap-panel" data-reveal>
+          <h3>Knowledge Concentration Heatmap - High Risk Zones</h3>
+          <div class="heatmap-grid" data-heatmap></div>
+          <div class="heat-legend">
+            <span>Low Risk</span>
+            <div class="heat-gradient"></div>
+            <span>Critical Risk</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dashboard tab-panel" id="risk" data-tab-panel="risk">
+      <div class="container">
+        <div class="query-bar" data-reveal>
+          <div class="query-icon">Query</div>
+          <div class="query-card-grid">
+            <div class="employee-select-panel">
+              <label for="employee-search" class="employee-select-label">Search employee</label>
+              <input 
+                type="text" 
+                id="employee-search" 
+                class="employee-search-input" 
+                placeholder="Type name or role..."
+                autocomplete="off"
+              />
+              <div id="employee-search-results" class="employee-search-results" style="display:none;"></div>
+              <select id="employee-select" class="employee-select" style="margin-top: 8px;">
+                <option value="Sarah Johnson">Sarah Johnson - Principal Engineer</option>
+                <option value="Marcus Chen">Marcus Chen - Staff SRE</option>
+                <option value="Priya Nair">Priya Nair - Lead Architect</option>
+                <option value="Alex Chen">Alex Chen - Lead DevOps</option>
+                <option value="Emma Thompson">Emma Thompson - Senior Backend Eng</option>
+              </select>
+            </div>
+            <div class="query-text" data-query-text>
+              "What happens if <span class="query-highlight" data-employee-name>Sarah Johnson</span> leaves in 30 days?"
+            </div>
+          </div>
+          <div class="query-badge">Coral active</div>
+        </div>
+
+        <div class="mini-stat-row" data-reveal>
+          <div class="mini-stat-card">
+            <span>Coral tool calls</span>
+            <strong data-tool-count>18</strong>
+            <small>last 2m</small>
+          </div>
+          <div class="mini-stat-card">
+            <span>Cross-source joins</span>
+            <strong data-join-count>42</strong>
+            <small>GitHub + Jira + Slack</small>
+          </div>
+          <div class="mini-stat-card">
+            <span>Evidence packets</span>
+            <strong data-evidence-count>23</strong>
+            <small>traceable findings</small>
+          </div>
+          <div class="mini-stat-card">
+            <span>Active agents</span>
+            <strong data-agent-count>6</strong>
+            <small>parallel dispatch</small>
+          </div>
+        </div>
+
+        <div class="decision-brief" data-reveal>
+          <div>
+            <span class="panel-title">Executive decision brief</span>
+            <h3>Prioritize Sarah Johnson transfer plan before the next production release.</h3>
+            <p>Coral correlates code ownership, IAM exposure, incident response paths, and documentation gaps into a single continuity risk decision.</p>
+          </div>
+          <div class="brief-metrics">
+            <div class="brief-metric">
+              <strong class="brief-metric-value">$1.8M</strong>
+              <span class="brief-metric-label">estimated quarterly exposure</span>
+            </div>
+            <div class="brief-metric">
+              <strong class="brief-metric-value">72h</strong>
+              <span class="brief-metric-label">recommended action window</span>
+            </div>
+            <div class="brief-metric">
+              <strong class="brief-metric-value">3</strong>
+              <span class="brief-metric-label">critical systems at risk</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-card" data-reveal>
+          <div class="alert-title">Critical departure risk detected - action required within 72 hours</div>
+          <div class="alert-body" data-employee-summary>
+            Sarah Johnson owns 4 critical systems, 847 unreviewed code segments, and holds sole knowledge of three
+            production runbooks. Insider risk elevated to 71.
+          </div>
+        </div>
+
+        <div class="dashboard-grid" data-reveal>
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Knowledge risk index</span>
+              <span class="panel-badge badge-accent" data-employee-badge>Sarah Johnson</span>
+            </div>
+            <div class="panel-body" data-impact-section>
+              <div class="scenario-tabs">
+                <button class="scenario-tab is-active" data-impact-tab="immediate">Immediate</button>
+                <button class="scenario-tab" data-impact-tab="30day">30-day notice</button>
+                <button class="scenario-tab" data-impact-tab="fullkt">Full transfer</button>
+                <button class="scenario-tab" data-impact-tab="teamloss">Team loss</button>
+              </div>
+              <div class="impact-bars" data-impact-bars></div>
+                <div class="risk-detail-grid">
+                  <div class="risk-detail-card">
+                    <div class="risk-detail-title">Risk composition</div>
+                    <div class="risk-detail-metrics" data-risk-metrics></div>
+                  </div>
+                  <div class="risk-detail-card">
+                    <div class="risk-detail-title">Primary drivers</div>
+                    <div class="detail-list" data-risk-drivers></div>
+                  </div>
+                  <div class="risk-detail-card">
+                    <div class="risk-detail-title">Signal breakdown</div>
+                    <div class="detail-list" data-risk-signals></div>
+                  </div>
+                  <div class="risk-detail-card">
+                    <div class="risk-detail-title">Successor readiness</div>
+                    <div class="detail-list" data-risk-successors></div>
+                  </div>
+                  <div class="risk-detail-card risk-narrative-card">
+                    <div class="risk-detail-title">Analyst note</div>
+                    <p class="risk-narrative" data-risk-narrative></p>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="panel" id="signals">
+            <div class="panel-header">
+              <span class="panel-title">Insider risk signals</span>
+              <span class="panel-badge badge-accent">3 active</span>
+            </div>
+            <div class="panel-body">
+              <div class="insider-list">
+                <div class="insider-item">
+                  <div>
+                    <div class="insider-title">Mass repository access anomaly</div>
+                    <div class="insider-detail">47 repos accessed in 2h, 3.2x baseline</div>
+                    <div class="insider-time">Detected 6h ago - GitHub + Datadog</div>
+                  </div>
+                  <span class="insider-sev sev-critical">Critical</span>
+                </div>
+                <div class="insider-item">
+                  <div>
+                    <div class="insider-title">Sensitive document bulk export</div>
+                    <div class="insider-detail">14 Confluence pages, 218MB total</div>
+                    <div class="insider-time">Detected 14h ago - DLP</div>
+                  </div>
+                  <span class="insider-sev sev-critical">Critical</span>
+                </div>
+                <div class="insider-item">
+                  <div>
+                    <div class="insider-title">Dormant system access</div>
+                    <div class="insider-detail">Legacy prod-db-1 queried after 180d</div>
+                    <div class="insider-time">Detected 2d ago - IAM</div>
+                  </div>
+                  <span class="insider-sev sev-high">High</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Critical employee index</span>
+              <span class="panel-badge badge-warn">7 flagged</span>
+            </div>
+            <div class="panel-body">
+              <div class="risk-list" data-risk-list></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-bottom" data-reveal>
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Knowledge concentration map</span>
+              <span class="panel-badge badge-warn">8 high zones</span>
+            </div>
+            <div class="panel-body">
+              <div class="heatmap-grid" data-heatmap></div>
+              <div class="heat-legend">
+                <span>Low</span>
+                <div class="heat-gradient"></div>
+                <span>Critical</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Dependency network</span>
+              <span class="panel-badge badge-accent" data-dependency-owner>Sarah Johnson</span>
+            </div>
+            <div class="panel-body">
+              <div class="dep-graph" data-dep-graph></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dashboard tab-panel" id="signals" data-tab-panel="signals">
+      <div class="container">
+        <div class="panel" data-reveal>
+          <div class="panel-header">
+            <span class="panel-title">Insider risk signals</span>
+            <span class="panel-badge badge-accent">3 active</span>
+          </div>
+          <div class="panel-body">
+            <div class="insider-list">
+              <div class="insider-item">
+                <div>
+                  <div class="insider-title">Mass repository access anomaly</div>
+                  <div class="insider-detail">47 repos accessed in 2h, 3.2x baseline</div>
+                  <div class="insider-time">Detected 6h ago - GitHub + Datadog</div>
+                </div>
+                <span class="insider-sev sev-critical">Critical</span>
+              </div>
+              <div class="insider-item">
+                <div>
+                  <div class="insider-title">Sensitive document bulk export</div>
+                  <div class="insider-detail">14 Confluence pages, 218MB total</div>
+                  <div class="insider-time">Detected 14h ago - DLP</div>
+                </div>
+                <span class="insider-sev sev-critical">Critical</span>
+              </div>
+              <div class="insider-item">
+                <div>
+                  <div class="insider-title">Dormant system access</div>
+                  <div class="insider-detail">Legacy prod-db-1 queried after 180d</div>
+                  <div class="insider-time">Detected 2d ago - IAM</div>
+                </div>
+                <span class="insider-sev sev-high">High</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dashboard tab-panel" id="successors" data-tab-panel="successors">
+      <div class="container">
+        <div class="panel" data-reveal>
+          <div class="panel-header">
+            <span class="panel-title">Successor intelligence</span>
+            <span class="panel-badge badge-teal">8 candidates</span>
+          </div>
+          <div class="panel-body">
+            <div class="successor-list" data-successor-list></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dashboard tab-panel" id="coral" data-tab-panel="coral">
+      <div class="container">
+        <div class="dashboard-grid" data-reveal>
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Coral activity log</span>
+              <span class="panel-badge badge-teal" data-coral-status>Active</span>
+            </div>
+            <div class="panel-body">
+              <div class="coral-tools">
+                <span class="coral-tag">github_get_employee_ownership</span>
+                <span class="coral-tag">slack_get_knowledge_map</span>
+                <span class="coral-tag">iam_get_access_exposure</span>
+                <span class="coral-tag">run_continuity_simulation</span>
+                <span class="coral-tag">generate_transfer_plan</span>
+              </div>
+              <div class="activity-list" data-activity-log></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Evidence ledger</span>
+              <span class="panel-badge badge-accent">Traceable</span>
+            </div>
+            <div class="panel-body">
+              <div class="evidence-list" data-evidence-list></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dashboard tab-panel" id="transfer" data-tab-panel="transfer">
+      <div class="container">
+        <div class="panel" data-reveal>
+          <div class="panel-header">
+            <span class="panel-title">Transfer action plan</span>
+            <span class="panel-badge badge-teal">Priority ordered</span>
+          </div>
+          <div class="panel-body">
+            <div class="plan-list">
+              <div class="plan-item">
+                <span class="plan-priority p1">P1</span>
+                <span class="plan-text">Document payment-gateway runbook</span>
+                <span class="plan-days">Day 1-3</span>
+              </div>
+              <div class="plan-item">
+                <span class="plan-priority p1">P1</span>
+                <span class="plan-text">Transfer API service ownership to M. Chen</span>
+                <span class="plan-days">Day 1-5</span>
+              </div>
+              <div class="plan-item">
+                <span class="plan-priority p2">P2</span>
+                <span class="plan-text">Run auth architecture knowledge session</span>
+                <span class="plan-days">Day 3-7</span>
+              </div>
+              <div class="plan-item">
+                <span class="plan-priority p2">P2</span>
+                <span class="plan-text">Revoke and redistribute IAM permissions</span>
+                <span class="plan-days">Day 7</span>
+              </div>
+              <div class="plan-item">
+                <span class="plan-priority p3">P3</span>
+                <span class="plan-text">Reassign Slack channel ownership</span>
+                <span class="plan-days">Day 10-14</span>
+              </div>
+              <div class="plan-item">
+                <span class="plan-priority p3">P3</span>
+                <span class="plan-text">Successor training schedule</span>
+                <span class="plan-days">Day 5-30</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dashboard tab-panel" id="intake" data-tab-panel="intake">
+      <div class="container">
+        <div class="panel intake-panel" data-reveal>
+          <div class="panel-header">
+            <span class="panel-title">New employee intake and analysis</span>
+            <span class="panel-badge badge-teal">Backend-powered</span>
+          </div>
+          <div class="panel-body intake-panel-body">
+            <form id="employee-intake-form" class="intake-form">
+              <div class="intake-grid">
+                <label class="form-field">
+                  <span>Employee ID</span>
+                  <input type="text" id="employee-id" placeholder="Optional UUID" />
+                </label>
+                <label class="form-field">
+                  <span>Legal name</span>
+                  <input type="text" id="employee-legal-name" placeholder="e.g. Jordan Lee" required />
+                </label>
+                <label class="form-field">
+                  <span>Email</span>
+                  <input type="email" id="employee-email" placeholder="jordan.lee@company.com" required />
+                </label>
+                <label class="form-field">
+                  <span>Role</span>
+                  <input type="text" id="employee-role" placeholder="Senior Engineer" required />
+                </label>
+                <label class="form-field">
+                  <span>Department</span>
+                  <input type="text" id="employee-department" placeholder="Platform Engineering" required />
+                </label>
+                <label class="form-field">
+                  <span>Tenure months</span>
+                  <input type="number" id="employee-tenure-months" min="0" value="12" required />
+                </label>
+                <label class="form-field form-field--wide">
+                  <span>Skills</span>
+                  <textarea id="employee-skills" rows="2" placeholder="Python, PostgreSQL, Kubernetes"></textarea>
+                </label>
+                <label class="form-field form-field--wide">
+                  <span>Certifications</span>
+                  <textarea id="employee-certifications" rows="2" placeholder="AWS Solutions Architect, CKA"></textarea>
+                </label>
+                <label class="form-field">
+                  <span>Risk score</span>
+                  <input type="number" id="employee-risk-score" min="0" max="100" step="0.1" value="0" required />
+                </label>
+                <label class="form-field">
+                  <span>Opportunity score</span>
+                  <input type="number" id="employee-opportunity-score" min="0" max="100" step="0.1" value="0" required />
+                </label>
+                <label class="form-field">
+                  <span>Performance rating</span>
+                  <input type="number" id="employee-performance-rating" min="1" max="5" step="0.1" value="4" required />
+                </label>
+                <label class="form-field">
+                  <span>Manager ID</span>
+                  <input type="text" id="employee-manager-id" placeholder="Optional UUID" />
+                </label>
+                <label class="form-field">
+                  <span>Account status</span>
+                  <select id="employee-account-status" required>
+                    <option value="ACTIVE">ACTIVE</option>
+                    <option value="INACTIVE">INACTIVE</option>
+                    <option value="SUSPENDED">SUSPENDED</option>
+                    <option value="TERMINATED">TERMINATED</option>
+                  </select>
+                </label>
+                <label class="form-field">
+                  <span>Bus factor impact</span>
+                  <input type="number" id="employee-bus-factor-impact" min="0" max="100" step="0.1" value="0" required />
+                </label>
+                <label class="form-field">
+                  <span>Knowledge concentration</span>
+                  <input type="number" id="employee-knowledge-concentration" min="0" max="100" step="0.1" value="0" required />
+                </label>
+                <label class="form-field">
+                  <span>Code ownership %</span>
+                  <input type="number" id="employee-code-ownership" min="0" max="100" step="0.1" value="0" required />
+                </label>
+                <label class="form-field">
+                  <span>Documentation gap</span>
+                  <input type="number" id="employee-documentation-gap" min="0" max="100" step="0.1" value="0" required />
+                </label>
+                <label class="form-field">
+                  <span>Critical system access count</span>
+                  <input type="number" id="employee-critical-system-access-count" min="0" step="1" value="0" required />
+                </label>
+                <label class="form-field">
+                  <span>Last high-risk incident</span>
+                  <input type="datetime-local" id="employee-last-high-risk-incident" />
+                </label>
+                <label class="form-field">
+                  <span>Last activity timestamp</span>
+                  <input type="datetime-local" id="employee-last-activity-timestamp" />
+                </label>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="button">Create and analyze</button>
+                <span class="form-hint">Skills and certifications are comma-separated. Leave optional timestamps blank to use now or null.</span>
+              </div>
+            </form>
+            <div id="employee-analysis-output" class="analysis-output is-empty">
+              Submit a new employee to generate the initial intelligence profile and 30-day scenario simulation.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>WCIR Intelligence Dashboard - secure synthetic evaluation environment</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
